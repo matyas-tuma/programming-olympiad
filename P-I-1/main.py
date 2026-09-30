@@ -1,5 +1,6 @@
 first_line = True
-entry = [] cabinet = []
+entry = []
+cabinet = []
 
 num_of_inputs = int(input())
 for i in range(num_of_inputs):
