@@ -1,25 +1,39 @@
-first_line = True
 entry = []
 cabinet = []
 
 num_of_inputs = int(input())
-for i in range(num_of_inputs):
+for _ in range(num_of_inputs):
     entry.append(list(map(int, input().split())))
 
+def rozklad(num1):
+    num2 = 2
+    delitele = []
+    while num1 > 1:
+        while num1 % num2 == 0:
+            delitele.append(num2)
+            num1 = num1 // num2
+        num2 += 1
+    return(delitele)
+
+def test():
+    global cabinet
+    global rozklad_vstupu
+    for rozklad_kabinet in cabinet:
+        for i in rozklad_kabinet:
+            for n in rozklad_vstupu:
+                if i == n:
+                    print("NE")
+                    return
+    print("ANO")
+    cabinet.append(rozklad_vstupu)
+    return
+
 for line in entry:
+    rozklad_vstupu = rozklad(line[1])
     if line[0] == 1:
-        insertable = True
-        for item in cabinet:
-            for i in range(2, line[1] + 1):
-                if item % i == 0 and line[1] % i == 0:
-                    insertable = False
-        if insertable:
-            print("ANO")
-            cabinet.append(line[1])
-        else:
-            print("NE")
+        test()
     else:
         try:
-            cabinet.remove(line[1])
+            cabinet.remove(rozklad(line[1]))
         except:
             pass
