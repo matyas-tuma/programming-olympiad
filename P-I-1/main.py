@@ -5,35 +5,33 @@ num_of_inputs = int(input())
 for _ in range(num_of_inputs):
     entry.append(list(map(int, input().split())))
 
-def rozklad(num1):
-    num2 = 2
-    delitele = []
-    while num1 > 1:
-        while num1 % num2 == 0:
-            delitele.append(num2)
-            num1 = num1 // num2
-        num2 += 1
-    return(delitele)
+def nsd(num1, num2):
+    if num1 == 0:
+        return num2
+    elif num2 == 0:
+        return num1
+    else:
+        return(nsd(num2, num1 % num2))
 
-def test():
-    global cabinet
-    global rozklad_vstupu
-    for rozklad_kabinet in cabinet:
-        for i in rozklad_kabinet:
-            for n in rozklad_vstupu:
-                if i == n:
-                    print("NE")
-                    return
+def check(num1, cabinet):
+    for item in cabinet:
+        if line[1] > item:
+            if nsd(num1, item) > 1:
+                print("NE")
+                return
+        else:
+            if nsd(item, num1) > 1:
+                print("NE")
+                return
+
     print("ANO")
-    cabinet.append(rozklad_vstupu)
-    return
+    cabinet.append(num1)
 
 for line in entry:
-    rozklad_vstupu = rozklad(line[1])
     if line[0] == 1:
-        test()
+        check(line[1], cabinet)
     else:
         try:
-            cabinet.remove(rozklad(line[1]))
+            cabinet.remove(line[1])
         except:
             pass
